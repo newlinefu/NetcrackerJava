@@ -2,16 +2,28 @@ package utils;
 
 import java.util.Comparator;
 
+/**
+ * @author Alexandr Smirnov
+ * @param <T>
+ */
 public class BubbleSorter<T> implements ISorter<T> {
 
     private Comparator<T> comparator;
 
+    /**
+     *
+     * @param comparator - Класс-реализация компаратора для сортируемых объектов/типов
+     */
     public BubbleSorter(Comparator<T> comparator) {
         this.comparator = comparator;
     }
 
-    public void sort(T[] array) {
-
+    /**
+     *
+     * @param array - сортируемый массив
+     * @return Мутированный отсортированный массив array
+     */
+    public T[] sort(T[] array) {
         boolean isSorted = false;
 
         while(!isSorted) {
@@ -25,5 +37,6 @@ public class BubbleSorter<T> implements ISorter<T> {
                 }
             }
         }
+        return array;
     }
 }
