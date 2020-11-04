@@ -1,7 +1,4 @@
-package entities.contracts;
-
-import entities.Client;
-import entities.contracts.Contract;
+package entities;
 
 import java.time.LocalDate;
 
