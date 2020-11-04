@@ -4,9 +4,13 @@ import entities.contracts.Contract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.BubbleSorter;
 
+import java.awt.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class RepositoryWorkWithFilledReposTest {
 
@@ -112,5 +116,58 @@ public class RepositoryWorkWithFilledReposTest {
     public void deleteNotExisted() {
         r.delete(-1);
         Assert.assertTrue(r.getLength() == 11);
+    }
+
+
+    @Test
+    public void findNoOne() {
+        Repository subR = r.find(contract -> contract.getStartDate().getYear() == 1999);
+        Assert.assertEquals(subR.getLength(), 0);
+    }
+
+    @Test
+    public void findAll() {
+        Repository subR = r.find(contract -> contract.getId() < 15);
+        Assert.assertEquals(subR.getLength(), r.getLength());
+    }
+
+    @Test
+    public void findByOddId() {
+        Repository subR = r.find(contract -> contract.getId() % 2 == 0);
+        boolean isPassed = true;
+
+        for(int i = 2, j = 0; i <= 10 && isPassed; i += 2, j++) {
+            if(!subR.get(i).isPresent())
+                isPassed = false;
+        }
+
+        Assert.assertTrue(isPassed && subR.getLength() == 5);
+    }
+
+    @Test
+    public void sortByNothing() {
+        r.sort(new BubbleSorter<Contract>((c1, c2) -> 0));
+        Contract[] repositoryCopyArray = r.getContracts();
+        boolean isPassed = true;
+
+
+        for(int i = 1; i <= 11 && isPassed; i++)
+            if(repositoryCopyArray[i - 1].getId() != i)
+                isPassed = false;
+
+        Assert.assertTrue(isPassed);
+    }
+
+    @Test
+    public void sortToInversion() {
+        r.sort(new BubbleSorter<>((c1, c2) -> c2.getId() - c1.getId()));
+        Contract[] repositoryCopyArray = r.getContracts();
+        boolean isPassed = true;
+
+        for(int i = 11, j = 0; j < r.getLength() && isPassed; i--, j++)
+            if(repositoryCopyArray[j].getId() != i)
+                isPassed = false;
+
+        Assert.assertTrue(isPassed);
     }
 }

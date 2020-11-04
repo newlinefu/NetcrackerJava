@@ -1,7 +1,16 @@
 package utils;
 
+/**
+ *
+ * @param <T>
+ */
 public interface ISorter<T> {
 
-    public void sort(T[] array);
+    /**
+     *
+     * @param array - Сортируемый массив
+     * @return Отсортированный исходный массив
+     */
+    public T[] sort(T[] array);
 
 }

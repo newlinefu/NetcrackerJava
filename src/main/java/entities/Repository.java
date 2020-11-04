@@ -4,6 +4,7 @@ import entities.contracts.Contract;
 import utils.ISorter;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Сущностный класс хранилища различных контрактов
@@ -43,6 +44,15 @@ public class Repository {
         return actualFinish;
     }
 
+    /**
+     *
+     * @return Копия массива контрактов исходного репозитория
+     */
+    public Contract[] getContracts() {
+        Contract[] returnedContracts = new Contract[actualFinish];
+        System.arraycopy(contracts, 0, returnedContracts, 0, actualFinish);
+        return returnedContracts;
+    }
     /**
      *
      * @param contractId - ID контракта, который должен быть удален
@@ -115,8 +125,26 @@ public class Repository {
     }
 
 
+    /**
+     *
+     * @param sorter - Класс, реализующий интерфейс ISorter, а также определяющий условие сортировки репозитория
+     */
     public void sort(ISorter<Contract> sorter) {
-        sorter.sort(contracts);
+
+        System.arraycopy(sorter.sort(getContracts()), 0, contracts, 0, actualFinish);
     }
 
+    /**
+     *
+     * @param predicate - Predicate, определяющий условие вычленения частей репозитория
+     * @return Новый репозиторий, содержащий только контракты, удовлетворяющие предикату
+     */
+    public Repository find(Predicate<Contract> predicate) {
+        Repository subRepos = new Repository();
+        for(int i = 0; i < actualFinish; i++) {
+            if(predicate.test(contracts[i]))
+                subRepos.add(contracts[i]);
+        }
+        return subRepos;
+    }
 }
