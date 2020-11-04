@@ -1,10 +1,9 @@
 package entities;
 
+import entities.contracts.Contract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
