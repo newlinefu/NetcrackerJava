@@ -1,7 +1,5 @@
 package entities;
 
-import entities.contracts.Contract;
-
 import java.util.Optional;
 
 /**
