@@ -1,5 +1,9 @@
 package entities;
 
+import entities.contracts.CellularContract;
+import entities.contracts.Contract;
+import entities.contracts.DigitalTelevisionContract;
+import entities.contracts.WiredInternetContract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
