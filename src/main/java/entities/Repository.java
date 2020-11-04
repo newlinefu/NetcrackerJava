@@ -1,5 +1,8 @@
 package entities;
 
+import entities.contracts.Contract;
+import utils.ISorter;
+
 import java.util.Optional;
 
 /**
@@ -110,4 +113,10 @@ public class Repository {
 
         return sb.toString();
     }
+
+
+    public void sort(ISorter<Contract> sorter) {
+        sorter.sort(contracts);
+    }
+
 }

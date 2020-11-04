@@ -1,4 +1,6 @@
-package entities;
+package entities.contracts;
+
+import entities.Client;
 
 import java.time.LocalDate;
 
@@ -97,4 +99,5 @@ public class Contract {
                 "| endDate=( " + endDate + " ) " +
                 "| client=( " + client + " )";
     }
+
 }
