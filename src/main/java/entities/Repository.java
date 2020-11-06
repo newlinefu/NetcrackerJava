@@ -34,6 +34,16 @@ public class Repository {
 
     /**
      *
+     * @return Копия массива контрактов исходного репозитория
+     */
+    public Contract[] getContracts() {
+        Contract[] returnedContracts = new Contract[actualFinish];
+        System.arraycopy(contracts, 0, returnedContracts, 0, actualFinish);
+        return returnedContracts;
+    }
+
+    /**
+     *
      * @return - Актуальная длина репозитория
      */
     public int getLength() {
