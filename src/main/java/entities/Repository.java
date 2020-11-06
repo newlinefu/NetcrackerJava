@@ -56,6 +56,10 @@ public class Repository {
         addWithCheck(contract);
     }
 
+    public void add(Contract[] contractsCollection) {
+        addContractsCollection(contractsCollection);
+    }
+
     /**
      *
      * @param contractId - ID контракта, который необходимо извлечь
@@ -73,6 +77,18 @@ public class Repository {
                 contracts = copiedContracts;
             }
             contracts[actualFinish++] = contract;
+        }
+    }
+
+    private void addContractsCollection(Contract[] contractsCollection) {
+        if(contractsCollection != null) {
+            if(contracts.length < contracts.length + contractsCollection.length) {
+                Contract[] copiedContracts = new Contract[(int)(1.5 * (contracts.length + contractsCollection.length))];
+                System.arraycopy(contracts, 0, copiedContracts, 0, contracts.length);
+                contracts = copiedContracts;
+            }
+            System.arraycopy(contractsCollection, 0, contracts, actualFinish, contractsCollection.length);
+            actualFinish += contractsCollection.length;
         }
     }
 

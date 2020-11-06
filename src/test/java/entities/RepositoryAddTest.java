@@ -130,7 +130,6 @@ public class RepositoryAddTest {
             if (!optcon.isPresent())
                 fail("Return null");
             else {
-                System.out.print('+');
                 Contract con = optcon.get();
                 Assert.assertTrue(
                         extLength == 1 &&
