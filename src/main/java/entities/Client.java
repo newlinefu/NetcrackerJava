@@ -2,7 +2,6 @@ package entities;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Сущностный класс клиента
@@ -15,7 +14,6 @@ public class Client {
     private String passport;
     private LocalDate birth;
     private String gender;
-    private int age;
 
     /**
      * @return ID клиента
@@ -72,6 +70,14 @@ public class Client {
 
     /**
      *
+     * @return Колличество полных лет, прошедших с момента рождения клиента
+     */
+    public int getAge() {
+        return Period.between(LocalDate.now(), birth).getYears();
+    }
+
+    /**
+     *
      * @param birth - Измененная дата рождения клиента
      */
     public void setBirth(LocalDate birth) {
@@ -106,7 +112,6 @@ public class Client {
         this.fullName = fullName;
         this.passport = passport;
         this.birth = birth;
-        age = Period.between(LocalDate.now(), birth).getYears();
     }
 
     @Override
@@ -114,6 +119,7 @@ public class Client {
         return "Client: id=( " + id + " ) | " +
                 "fullName=( " + fullName + " ) | " +
                 "passport=( " + passport + " ) | birth=( " + birth + " ) | " +
-                "gender=( " + gender + " )";
+                "gender=( " + gender + " ) | " +
+                "age=( " + getAge() + " ) ";
     }
 }
