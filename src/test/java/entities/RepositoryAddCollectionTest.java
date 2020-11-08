@@ -1,17 +1,13 @@
 package entities;
 
 
+import entities.contracts.Contract;
+import entities.contracts.WiredInternetContract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.Parameterized;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
-
-import static org.junit.Assert.fail;
 
 public class RepositoryAddCollectionTest {
 
