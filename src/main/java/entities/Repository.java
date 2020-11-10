@@ -1,7 +1,7 @@
 package entities;
 
 import entities.contracts.Contract;
-import utils.ISorter;
+import utils.sorters.ISorter;
 
 import java.util.Optional;
 import java.util.function.Predicate;

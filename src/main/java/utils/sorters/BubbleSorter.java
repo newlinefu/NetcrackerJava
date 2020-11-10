@@ -1,4 +1,4 @@
-package utils;
+package utils.sorters;
 
 import java.util.Comparator;
 

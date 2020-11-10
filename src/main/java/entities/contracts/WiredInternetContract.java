@@ -44,7 +44,7 @@ public class WiredInternetContract extends Contract {
 
     @Override
     public String toString() {
-        return "WiredInternetContract: id=( " + getId() + ") " +
+        return "WiredInternetContract: id=( " + getId() + " ) " +
                 " | startDate=( " + getStartDate() + " ) " +
                 " | endDate=( " + getEndDate() + " ) " +
                 "| client=( " + getClient().toString() + " )" +

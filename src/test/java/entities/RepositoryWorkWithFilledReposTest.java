@@ -4,14 +4,11 @@ import entities.contracts.Contract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import utils.BubbleSorter;
-import utils.HeapSorter;
+import utils.sorters.BubbleSorter;
+import utils.sorters.HeapSorter;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class RepositoryWorkWithFilledReposTest {
 
@@ -29,7 +26,7 @@ public class RepositoryWorkWithFilledReposTest {
                 {2016, 1, 1}, {2017, 1, 1}, {2018, 1, 1}, {2019, 1, 1}, {2020, 1, 1}, {2021, 1, 1}
         };
         int[] idData = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-        Client c = new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2));
+        Client c = new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ");
 
         for(int i = 0; i < 11; i++)
             r.add(new Contract(
