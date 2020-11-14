@@ -10,16 +10,16 @@ public interface IRepositoryConverter {
 
     /**
      *
-     * @param filename - Путь к файлу, содержимое которого будет конвертироваться
-     * @return Новый репозиторий на основе данных из файла
+     * @param filename Путь к файлу, содержимое которого будет конвертироваться
+     * @param repos Дополняемый данными репозиторий
      */
-    Repository parseFileData(String filename);
+    void parseFileData(String filename, Repository repos);
 
     /**
      *
-     * @param data - Строка, на основе которой будет строиться новый репозиторий
-     * @return Новый репозиторий на основе тектовых данных
+     * @param data Строка, на основе которой будет строиться новый репозиторий
+     * @param repos Дополняемый данными репозиторий
      */
-    Repository parseStringData(String data);
+    void parseStringData(String data, Repository repos);
 
 }

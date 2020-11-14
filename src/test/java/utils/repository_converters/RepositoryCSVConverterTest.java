@@ -24,8 +24,9 @@ public class RepositoryCSVConverterTest {
     @Test
     public void convertEmptyStringTest() {
         String testCSV = "ID; BEG; END; FIO; BDATE; PASP; GENDER; TYPE; ADDINFO\n\n";
-        Repository r = converter.parseStringData(testCSV);
-        Assert.assertEquals(r.getLength(), 0);
+        Repository emptyRepos = new Repository();
+        converter.parseStringData(testCSV, emptyRepos);
+        Assert.assertEquals(emptyRepos.getLength(), 0);
     }
 
     @Test
@@ -35,8 +36,9 @@ public class RepositoryCSVConverterTest {
                 "2; 2015-11-01; 2020-11-02; Ярослав Курчатов Михайлович; 1995-03-03; 2017 111111; МУЖ; CellularContract; 3000 & 400 & 200\n" +
                 "3; 2020-07-01; 2021-08-01; Смирнов Александр Константинович; 2000-03-30; 2019 202020; МУЖ; DigitalTelevisionContract; TV 3 & HBO & STS\n" +
                 "4; 2017-11-01; 2028-11-02; Зенина Зинаида Аркадьевна; 1998-03-03; 2017 112211; ЖЕН; WiredInternetContract; 5978\n";
-        Repository r = converter.parseStringData(testCSV);
-        Contract[] contracts = r.getContracts();
+        Repository fullRightRepository = new Repository();
+        converter.parseStringData(testCSV, fullRightRepository);
+        Contract[] contracts = fullRightRepository.getContracts();
 
         CellularContract cc = (CellularContract) contracts[1];
         DigitalTelevisionContract dc = (DigitalTelevisionContract) contracts[2];
@@ -87,8 +89,9 @@ public class RepositoryCSVConverterTest {
                 "1; 2019-12-01; 2020-12-02; Ярослав Курчатов Михайлович; 1995-03-03; 2017 111111; МУЖ; Contract;\n" +
                 "2; 2015-11-01; 2020-11-02; Ярослав Курчатов Михайлович; 1995-03-03; 2017 111111; МУЖ; CellularContract; 3000 & 400 & 200\n" +
                 "3; 2020-07-01; 2021-08-01; Ярослав Курчатов Михайлович; 1995-03-03; 2017 111111; МУЖ; DigitalTelevisionContract; TV 3 & HBO & STS\n";
-        Repository r = converter.parseStringData(testCSV);
-        Contract[] contracts = r.getContracts();
+        Repository reposWithTheSameClients = new Repository();
+        converter.parseStringData(testCSV, reposWithTheSameClients);
+        Contract[] contracts = reposWithTheSameClients.getContracts();
 
         Assert.assertTrue(
                 contracts.length == 3
@@ -122,14 +125,15 @@ public class RepositoryCSVConverterTest {
 
                 "11; 2017-11-01; 2028-11-02; Зенина Зинаида Аркадьевна; 1998-03-03; 2017 112211; ЖЕН; WiredInternetContract; 59b78\n";
 
-        Repository r = converter.parseStringData(testCSV);
+        Repository reposWithBrokenData = new Repository();
+        converter.parseStringData(testCSV, reposWithBrokenData);
 
         Assert.assertTrue(
-                r.getLength() == 4
-                && r.get(1).isPresent()
-                && r.get(7).isPresent()
-                && r.get(9).isPresent()
-                && r.get(10).isPresent()
+                reposWithBrokenData.getLength() == 4
+                && reposWithBrokenData.get(1).isPresent()
+                && reposWithBrokenData.get(7).isPresent()
+                && reposWithBrokenData.get(9).isPresent()
+                && reposWithBrokenData.get(10).isPresent()
         );
     }
 }

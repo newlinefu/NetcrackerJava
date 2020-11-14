@@ -23,14 +23,14 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
 
     /**
      *
-     * @param data - Строка в формате CSV, на основе которой будет строиться новый репозиторий. Если
-     *               формат не будет соответствовать CSV, то будет построен пустой репозиторий
-     * @return Новый репозиторий на основе CSV строки
+     * @param data Строка в формате CSV, на основе которой будет строиться новый репозиторий. Если
+     *                    формат не будет соответствовать CSV, то будет построен пустой репозиторий
+     * @param repos Дополняемый данными репозиторий
      */
     @Override
-    public Repository parseStringData(String data) {
+    public void parseStringData(String data, Repository repos) {
         Scanner stringScanner = new Scanner(data);
-        return parseAll(stringScanner);
+        parseAll(stringScanner, repos);
     }
 
     /**
@@ -38,28 +38,26 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
      * @param filename - Путь к csv файлу, содержимое которого будет конвертироваться. Формат файла не обязан быть
      *                   с расширением CSV, если его содержимое будет пригодно для конвертирования. В случае
      *                   непригодности будет возвращен пустой репозиторий
-     * @return Новый репозиторий на основе CSV файла
+     * @param repos - Дополняемый данными репозиторий
      */
     @Override
-    public Repository parseFileData(String filename) {
+    public void parseFileData(String filename, Repository repos) {
 
         File csvDB = new File(filename);
 
         try {
             Scanner fileScanner = new Scanner(csvDB);
-            return parseAll(fileScanner);
+            parseAll(fileScanner, repos);
 
         } catch (Exception err) {
             System.out.println(err.getMessage());
             err.printStackTrace();
-            return null;
         }
     }
 
 
-    public Repository parseAll(Scanner src) {
+    public void parseAll(Scanner src, Repository repos) {
         List<Client> clients = new LinkedList<>();
-        Repository resultedRepos = new Repository();
 
         for (int i = 0; src.hasNextLine(); i++) {
             String csvContract = src.nextLine();
@@ -68,10 +66,9 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
             if (i > 0) {
                 //parseLine возвращает null при битой строке. Репозиторий
                 //не реагирует на добавление null
-                resultedRepos.add(parseLine(csvContract, clients));
+                repos.add(parseLine(csvContract, clients));
             }
         }
-        return resultedRepos;
     }
 
     private Contract parseLine(String line, List<Client> clients) {
