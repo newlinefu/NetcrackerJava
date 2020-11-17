@@ -147,7 +147,7 @@ public class RepositoryWorkWithFilledReposTest {
 
     @Test
     public void sortByNothingBubble() {
-        r.sort(new BubbleSorter<>((c1, c2) -> 0));
+        r.sort((c1, c2) -> 0);
         Contract[] repositoryCopyArray = r.getContracts();
         boolean isPassed = true;
 
@@ -161,33 +161,7 @@ public class RepositoryWorkWithFilledReposTest {
 
     @Test
     public void sortToInversionBubble() {
-        r.sort(new BubbleSorter<>((c1, c2) -> c2.getId() - c1.getId()));
-        Contract[] repositoryCopyArray = r.getContracts();
-        boolean isPassed = true;
-
-        for(int i = 11, j = 0; j < r.getLength() && isPassed; i--, j++)
-            if(repositoryCopyArray[j].getId() != i)
-                isPassed = false;
-
-        Assert.assertTrue(isPassed);
-    }
-
-    @Test
-    public void sortByNothingHeap() {
-        r.sort(new HeapSorter<>((c1, c2) -> 0));
-        Contract[] repositoryCopyArray = r.getContracts();
-        boolean isPassed = true;
-
-        for(int i = 1; i <= 11 && isPassed; i++)
-            if(repositoryCopyArray[i - 1].getId() != i)
-                isPassed = false;
-
-        Assert.assertTrue(isPassed);
-    }
-
-    @Test
-    public void sortToInversionHeap() {
-        r.sort(new HeapSorter<>((c1, c2) -> c2.getId() - c1.getId()));
+        r.sort((c1, c2) -> c2.getId() - c1.getId());
         Contract[] repositoryCopyArray = r.getContracts();
         boolean isPassed = true;
 

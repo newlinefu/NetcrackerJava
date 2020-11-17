@@ -8,22 +8,13 @@ import java.util.Comparator;
  */
 public class BubbleSorter<T> implements ISorter<T> {
 
-    private Comparator<T> comparator;
-
-    /**
-     *
-     * @param comparator - Класс-реализация компаратора для сортируемых объектов/типов
-     */
-    public BubbleSorter(Comparator<T> comparator) {
-        this.comparator = comparator;
-    }
-
     /**
      *
      * @param array - сортируемый массив
+     * @param comparator - Условие сортировки исходного массива
      * @return Мутированный отсортированный массив array
      */
-    public T[] sort(T[] array) {
+    public T[] sort(T[] array, Comparator<T> comparator) {
         boolean isSorted = false;
 
         while(!isSorted) {

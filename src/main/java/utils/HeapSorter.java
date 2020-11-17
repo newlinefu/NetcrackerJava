@@ -10,28 +10,19 @@ import java.util.Comparator;
  */
 public class HeapSorter<T> implements ISorter<T> {
 
-    private Comparator<T> comparator;
-
-    /**
-     *
-     * @param comparator - Класс-реализация компаратора для сортируемых объектов/типов
-     */
-    public HeapSorter(Comparator<T> comparator) {
-        this.comparator = comparator;
-    }
-
     /**
      * Пирамидальная сортировка (HeapSort)
      * @param array - Сортируемый массив
+     * @param comparator - Условие сортировки исходного массива
      * @return Отсортированный мутированный массив
      */
     @Override
-    public T[] sort(T[] array) {
+    public T[] sort(T[] array, Comparator<T> comparator) {
         int len = array.length;
 
         //Построение сортирующего дерева
         for (int i = len / 2 - 1; i >= 0; i--)
-            heapify(array, len, i);
+            heapify(array, comparator, len, i);
 
         //Извлекаем корневые элементы
         for (int i = len - 1; i >= 0; i--) {
@@ -42,7 +33,7 @@ public class HeapSorter<T> implements ISorter<T> {
             }
 
             //Перегрупировываем сортирующее дерево
-            heapify(array, i, 0);
+            heapify(array, comparator, i, 0);
         }
 
         return array;
@@ -58,7 +49,7 @@ public class HeapSorter<T> implements ISorter<T> {
      * @param len - Длина изменяемой в данный момент части
      * @param index - Индекс, с которого будет происходить формирования
      */
-    private void heapify(T[] array, int len, int index) {
+    private void heapify(T[] array, Comparator<T> comparator, int len, int index) {
         int largestElementIndex = index;
         int leftElementIndex = 2 * index + 1; // левый = 2*i + 1
         int rightElementIndex = 2 * index + 2; // правый = 2*i + 2
@@ -76,7 +67,7 @@ public class HeapSorter<T> implements ISorter<T> {
             array[largestElementIndex] = dummy;
 
             // Рекурсивно преобразуем в двоичную кучу затронутое поддерево
-            heapify(array, len, largestElementIndex);
+            heapify(array, comparator, len, largestElementIndex);
         }
     }
 }
