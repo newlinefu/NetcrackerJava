@@ -136,4 +136,19 @@ public class RepositoryCSVConverterTest {
                 && reposWithBrokenData.get(10).isPresent()
         );
     }
+
+    @Test
+    public void checkValidatorsTest() {
+        String testCSV = "ID; BEG; END; FIO; BDATE; PASP; GENDER; TYPE; ADDINFO\n" +
+                "1; 2021-12-01; 2020-12-02; Ярослав Курчатов Михайлович; 1995-03-03; 2017 111111; МУЖ; Contract;\n" +
+                "2; 2020-11-02; 2020-11-02; Ярослав Курчатов Михайлович; 1995-03-03; 2017 111111; МУЖ; CellularContract; 3000 & 400 & 200\n" +
+                "3; 2020-07-01; 2021-08-01; Смирнов Александр Константинович; 2006-01-01; 2019 202020; МУЖ; DigitalTelevisionContract; TV 3 & HBO & STS\n" +
+                "4; 2017-11-01; 2028-11-02; Зенина Зинаида Аркадьевна; 2080-01-01; 2017 112211; ЖЕН; WiredInternetContract; 5978\n" +
+                "5; 2020-07-01; 2021-08-01; Смирнов Александр Константинович; 2006-01-01; 2019 202020; МУЖ; DigitalTelevisionContract; \n";
+
+        Repository reposWithBrokenData = new Repository();
+        converter.parseStringData(testCSV, reposWithBrokenData);
+
+        Assert.assertEquals(1, reposWithBrokenData.getLength());
+    }
 }

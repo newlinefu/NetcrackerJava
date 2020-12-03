@@ -6,25 +6,40 @@ import entities.contracts.CellularContract;
 import entities.contracts.Contract;
 import entities.contracts.DigitalTelevisionContract;
 import entities.contracts.WiredInternetContract;
+import utils.validators.IValidator;
+import utils.validators.Message;
+import utils.validators.Status;
+import utils.validators.validator_examples.ClientBirthValidator;
+import utils.validators.validator_examples.DateValidator;
+import utils.validators.validator_examples.DigitalTelevisionChannelsValidator;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
  * Класс конвертирования CSV формата в объект репозитория
+ *
  * @author Alexandr Smirnov
  */
 public class RepositoryCSVConverter implements IRepositoryConverter {
 
-    public RepositoryCSVConverter() {}
+    private List<IValidator> validators;
+
+    public RepositoryCSVConverter() {
+        validators = new LinkedList<>();
+
+        validators.add(new ClientBirthValidator());
+        validators.add(new DateValidator());
+        validators.add(new DigitalTelevisionChannelsValidator());
+    }
 
     /**
-     *
-     * @param data Строка в формате CSV, на основе которой будет строиться новый репозиторий. Если
-     *                    формат не будет соответствовать CSV, то будет построен пустой репозиторий
+     * @param data  Строка в формате CSV, на основе которой будет строиться новый репозиторий. Если
+     *              формат не будет соответствовать CSV, то будет построен пустой репозиторий
      * @param repos Дополняемый данными репозиторий
      */
     @Override
@@ -34,11 +49,10 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
     }
 
     /**
-     *
      * @param filename - Путь к csv файлу, содержимое которого будет конвертироваться. Формат файла не обязан быть
-     *                   с расширением CSV, если его содержимое будет пригодно для конвертирования. В случае
-     *                   непригодности будет возвращен пустой репозиторий
-     * @param repos - Дополняемый данными репозиторий
+     *                 с расширением CSV, если его содержимое будет пригодно для конвертирования. В случае
+     *                 непригодности будет возвращен пустой репозиторий
+     * @param repos    - Дополняемый данными репозиторий
      */
     @Override
     public void parseFileData(String filename, Repository repos) {
@@ -56,7 +70,7 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
     }
 
 
-    public void parseAll(Scanner src, Repository repos) {
+    private void parseAll(Scanner src, Repository repos) {
         List<Client> clients = new LinkedList<>();
 
         for (int i = 0; src.hasNextLine(); i++) {
@@ -66,7 +80,9 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
             if (i > 0) {
                 //parseLine возвращает null при битой строке. Репозиторий
                 //не реагирует на добавление null
-                repos.add(parseLine(csvContract, clients));
+                Contract newContract = parseLine(csvContract, clients);
+                Optional<Contract> validatedContract = validateContract(newContract);
+                validatedContract.ifPresent(repos::add);
             }
         }
     }
@@ -75,7 +91,7 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
         String[] lineItems = line.split(";");
 
         //Поверхностная проверка на валидность строки
-        if(!isValidContractData(lineItems)) {
+        if (!isValidContractData(lineItems)) {
             return null;
         }
 
@@ -98,7 +114,7 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
         Client candidate = clientParse(clients, fullName, birthDate, passport, gender);
 
         //Если хотябы один аспект контракта невалиден => контракт не парсится
-        if(contractId == -1 || candidate == null)
+        if (contractId == -1 || candidate == null)
             return null;
 
         return contractParse(contractId, beginDate, endDate, candidate, conType, addInfo);
@@ -118,14 +134,14 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
         LocalDate contractLocalDateStart = parseDateFromString(beginDate);
         LocalDate contractLocalDateEnd = parseDateFromString(endDate);
 
-        if(contractLocalDateStart == null || contractLocalDateEnd == null)
+        if (contractLocalDateStart == null || contractLocalDateEnd == null)
             return null;
 
         switch (conType) {
-            case("Contract"): {
+            case ("Contract"): {
                 return new Contract(contractId, contractLocalDateStart, contractLocalDateEnd, client);
             }
-            case("WiredInternetContract"): {
+            case ("WiredInternetContract"): {
                 double maxKBInternetSpeed;
                 try {
                     maxKBInternetSpeed = Double.parseDouble(addInfo);
@@ -133,29 +149,29 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
                     return null;
                 }
                 return new WiredInternetContract(
-                                contractId,
-                                contractLocalDateStart,
-                                contractLocalDateEnd,
-                                client,
-                                maxKBInternetSpeed
-                            );
+                        contractId,
+                        contractLocalDateStart,
+                        contractLocalDateEnd,
+                        client,
+                        maxKBInternetSpeed
+                );
             }
-            case("DigitalTelevisionContract"): {
+            case ("DigitalTelevisionContract"): {
 
                 String[] channelPackage = addInfo.split("&");
 
-                for(int i = 0; i < channelPackage.length; i++)
+                for (int i = 0; i < channelPackage.length; i++)
                     channelPackage[i] = channelPackage[i].trim();
 
                 return new DigitalTelevisionContract(
-                                contractId,
-                                contractLocalDateStart,
-                                contractLocalDateEnd,
-                                client,
-                                channelPackage
-                            );
+                        contractId,
+                        contractLocalDateStart,
+                        contractLocalDateEnd,
+                        client,
+                        channelPackage
+                );
             }
-            case("CellularContract"): {
+            case ("CellularContract"): {
                 String[] data = addInfo.split("&");
                 double internetMBQuantity;
                 int minutesQuantity;
@@ -170,14 +186,14 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
                 }
 
                 return new CellularContract(
-                                contractId,
-                                contractLocalDateStart,
-                                contractLocalDateEnd,
-                                client,
-                                internetMBQuantity,
-                                minutesQuantity,
-                                messagesQuantity
-                            );
+                        contractId,
+                        contractLocalDateStart,
+                        contractLocalDateEnd,
+                        client,
+                        internetMBQuantity,
+                        minutesQuantity,
+                        messagesQuantity
+                );
             }
             default: {
                 return null;
@@ -236,15 +252,15 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
 
     private boolean isValidContractData(String[] lineItems) {
         return (
-                    lineItems.length == 9
-                    ||
-                    (lineItems.length == 8 && lineItems[7].trim().equals(Contract.class.getSimpleName()))
-                )
+                lineItems.length == 9
+                        ||
+                        (lineItems.length == 8 && lineItems[7].trim().equals(Contract.class.getSimpleName()))
+        )
                 &&
                 (
-                    lineItems[1].trim().matches("\\d{4}-\\d{2}-\\d{2}")
-                    &&
-                    lineItems[2].trim().matches("\\d{4}-\\d{2}-\\d{2}")
+                        lineItems[1].trim().matches("\\d{4}-\\d{2}-\\d{2}")
+                                &&
+                                lineItems[2].trim().matches("\\d{4}-\\d{2}-\\d{2}")
                 );
     }
 
@@ -261,5 +277,24 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
         } catch (Exception err) {
             return null;
         }
+    }
+
+    private Optional<Contract> validateContract(Contract c) {
+        if(c == null)
+            return Optional.empty();
+
+        for(IValidator validator : validators) {
+
+            Message resultMessage = validator.validate(c);
+
+            if (resultMessage.getStatus().name().equals(Status.WARNING.name())) {
+                System.out.println(resultMessage.toString());
+            } else if (resultMessage.getStatus().name().equals(Status.ERROR.name())){
+                System.out.println(resultMessage.toString());
+                return Optional.empty();
+            }
+        }
+
+        return Optional.of(c);
     }
 }

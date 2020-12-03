@@ -26,7 +26,7 @@ public class Contract {
      *
      * @param id - Измененное ID контракта
      */
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
