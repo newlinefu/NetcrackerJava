@@ -1,9 +1,8 @@
 package entities;
 
 import entities.contracts.Contract;
-import utils.BubbleSorter;
-import utils.HeapSorter;
-import utils.ISorter;
+import utils.sorters.BubbleSorter;
+import utils.sorters.ISorter;
 
 import java.util.Comparator;
 
@@ -152,8 +151,8 @@ public class Repository {
      * @param comparator - Параметр сортировки контрактов репозитория
      */
     public void sort(Comparator<Contract> comparator) {
-        sorter = new BubbleSorter<>();
-        System.arraycopy(sorter.sort(getContracts(), comparator), 0, contracts, 0, actualFinish);
+        sorter = new BubbleSorter<>(comparator);
+        System.arraycopy(sorter.sort(getContracts()), 0, contracts, 0, actualFinish);
     }
 
     /**
