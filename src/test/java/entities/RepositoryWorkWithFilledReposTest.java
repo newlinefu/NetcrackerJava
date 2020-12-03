@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import java.time.LocalDate;
+import java.util.NoSuchElementException;
+
 public class RepositoryWorkWithFilledReposTest {
 
     private Repository r;
@@ -29,7 +32,7 @@ public class RepositoryWorkWithFilledReposTest {
                 {2016, 1, 1}, {2017, 1, 1}, {2018, 1, 1}, {2019, 1, 1}, {2020, 1, 1}, {2021, 1, 1}
         };
         int[] idData = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-        Client c = new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2));
+        Client c = new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ");
 
         for(int i = 0; i < 11; i++)
             r.add(new Contract(
@@ -161,6 +164,32 @@ public class RepositoryWorkWithFilledReposTest {
 
     @Test
     public void sortToInversionBubble() {
+        r.sort((c1, c2) -> c2.getId() - c1.getId());
+        Contract[] repositoryCopyArray = r.getContracts();
+        boolean isPassed = true;
+
+        for(int i = 11, j = 0; j < r.getLength() && isPassed; i--, j++)
+            if(repositoryCopyArray[j].getId() != i)
+                isPassed = false;
+
+        Assert.assertTrue(isPassed);
+    }
+
+    @Test
+    public void sortByNothingHeap() {
+        r.sort((c1, c2) -> 0);
+        Contract[] repositoryCopyArray = r.getContracts();
+        boolean isPassed = true;
+
+        for(int i = 1; i <= 11 && isPassed; i++)
+            if(repositoryCopyArray[i - 1].getId() != i)
+                isPassed = false;
+
+        Assert.assertTrue(isPassed);
+    }
+
+    @Test
+    public void sortToInversionHeap() {
         r.sort((c1, c2) -> c2.getId() - c1.getId());
         Contract[] repositoryCopyArray = r.getContracts();
         boolean isPassed = true;

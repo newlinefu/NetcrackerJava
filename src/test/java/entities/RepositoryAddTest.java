@@ -62,7 +62,7 @@ public class RepositoryAddTest {
                                 1,
                                 LocalDate.of(2019, 11, 2),
                                 LocalDate.of(2020, 3, 2),
-                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2))
+                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ")
                         ),
                         1,
                         2019,
@@ -75,7 +75,7 @@ public class RepositoryAddTest {
                                 1,
                                 LocalDate.of(2015, 11, 2),
                                 LocalDate.of(2016, 3, 2),
-                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                                 3.5,
                                 400,
                                 400
@@ -91,7 +91,7 @@ public class RepositoryAddTest {
                                 1,
                                 LocalDate.of(2015, 11, 2),
                                 LocalDate.of(2016, 3, 2),
-                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                                 new String[]{"Ren TV", "TV 3"}
                         ),
                         1,
@@ -105,7 +105,7 @@ public class RepositoryAddTest {
                                 1,
                                 LocalDate.of(2015, 11, 2),
                                 LocalDate.of(2016, 3, 2),
-                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                                new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                                 4365
                         ),
                         1,

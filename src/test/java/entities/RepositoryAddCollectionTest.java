@@ -33,14 +33,14 @@ public class RepositoryAddCollectionTest {
                         1,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         2,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 )
         };
@@ -65,77 +65,77 @@ public class RepositoryAddCollectionTest {
                         1,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         2,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         3,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         4,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         5,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         6,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         7,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         8,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         9,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         10,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 ),
                 new WiredInternetContract(
                         11,
                         LocalDate.of(2015, 11, 2),
                         LocalDate.of(2016, 3, 2),
-                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2)),
+                        new Client(0, "Alex Rum", "123", LocalDate.of(1995, 3, 2), "МУЖ"),
                         4365
                 )
         };

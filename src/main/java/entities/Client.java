@@ -2,6 +2,7 @@ package entities;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 /**
  * Сущностный класс клиента
@@ -107,11 +108,12 @@ public class Client {
      * @param passport - Данные о паспорте в строковом формате
      * @param birth - Дата рождения
      */
-    public Client(int id, String fullName, String passport, LocalDate birth) {
+    public Client(int id, String fullName, String passport, LocalDate birth, String gender) {
         this.id = id;
         this.fullName = fullName;
         this.passport = passport;
         this.birth = birth;
+        this.gender = gender;
     }
 
     @Override
@@ -121,5 +123,23 @@ public class Client {
                 "passport=( " + passport + " ) | birth=( " + birth + " ) | " +
                 "gender=( " + gender + " ) | " +
                 "age=( " + getAge() + " ) ";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Client client = (Client) o;
+        return  fullName.equals(client.fullName) &&
+                passport.equals(client.passport) &&
+                birth.equals(client.birth) &&
+                gender.equals(client.gender);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fullName, passport, birth, gender);
     }
 }
