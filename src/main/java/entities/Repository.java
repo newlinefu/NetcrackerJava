@@ -18,6 +18,7 @@ public class Repository {
 
     private Contract[] contracts;
     private int actualFinish = 0;
+    ISorter<Contract> sorter;
 
     /**
      * @value - Изначальная длина репозитория
@@ -151,8 +152,8 @@ public class Repository {
      * @param comparator - Параметр сортировки контрактов репозитория
      */
     public void sort(Comparator<Contract> comparator) {
-        ISorter<Contract> hs = new BubbleSorter<>();
-        System.arraycopy(hs.sort(getContracts(), comparator), 0, contracts, 0, actualFinish);
+        sorter = new BubbleSorter<>();
+        System.arraycopy(sorter.sort(getContracts(), comparator), 0, contracts, 0, actualFinish);
     }
 
     /**

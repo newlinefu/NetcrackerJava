@@ -4,15 +4,6 @@ import entities.contracts.Contract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import utils.BubbleSorter;
-import utils.HeapSorter;
-
-import java.awt.*;
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
@@ -149,7 +140,7 @@ public class RepositoryWorkWithFilledReposTest {
     }
 
     @Test
-    public void sortByNothingBubble() {
+    public void sortByNothing() {
         r.sort((c1, c2) -> 0);
         Contract[] repositoryCopyArray = r.getContracts();
         boolean isPassed = true;
@@ -163,33 +154,7 @@ public class RepositoryWorkWithFilledReposTest {
     }
 
     @Test
-    public void sortToInversionBubble() {
-        r.sort((c1, c2) -> c2.getId() - c1.getId());
-        Contract[] repositoryCopyArray = r.getContracts();
-        boolean isPassed = true;
-
-        for(int i = 11, j = 0; j < r.getLength() && isPassed; i--, j++)
-            if(repositoryCopyArray[j].getId() != i)
-                isPassed = false;
-
-        Assert.assertTrue(isPassed);
-    }
-
-    @Test
-    public void sortByNothingHeap() {
-        r.sort((c1, c2) -> 0);
-        Contract[] repositoryCopyArray = r.getContracts();
-        boolean isPassed = true;
-
-        for(int i = 1; i <= 11 && isPassed; i++)
-            if(repositoryCopyArray[i - 1].getId() != i)
-                isPassed = false;
-
-        Assert.assertTrue(isPassed);
-    }
-
-    @Test
-    public void sortToInversionHeap() {
+    public void sortToInversion() {
         r.sort((c1, c2) -> c2.getId() - c1.getId());
         Contract[] repositoryCopyArray = r.getContracts();
         boolean isPassed = true;
