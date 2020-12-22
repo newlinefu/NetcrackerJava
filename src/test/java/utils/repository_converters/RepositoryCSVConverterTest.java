@@ -8,6 +8,7 @@ import entities.contracts.WiredInternetContract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.injecting.Injector;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,7 @@ public class RepositoryCSVConverterTest {
     @Before
     public void setUp() {
         converter = new RepositoryCSVConverter();
+        Injector.inject(converter);
     }
 
     @Test

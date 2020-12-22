@@ -7,8 +7,7 @@ import utils.validators.Message;
 import utils.validators.Status;
 
 /**
- * Класс проверки списка подключенных каналов у контракта
- * цифрового телевидения
+ * Класс проверки списка подключенных каналов у контракта цифрового телевидения.
  *
  * @author Smirnov Alexandr
  */
@@ -30,7 +29,8 @@ public class DigitalTelevisionChannelsValidator implements IValidator {
             } else {
                 return new Message(Status.OK, "Success");
             }
-        } else
+        } else {
             return new Message(Status.OK, "");
+        }
     }
 }

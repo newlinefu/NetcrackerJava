@@ -1,12 +1,12 @@
 package entities.contracts;
 
 import entities.Client;
-import entities.contracts.Contract;
 
 import java.time.LocalDate;
 
 /**
- * Сущностный класс контракта мобильной связи
+ * Сущностный класс контракта мобильной связи.
+ *
  * @author Alexandr Smirnov
  */
 public class CellularContract extends Contract {
@@ -90,11 +90,26 @@ public class CellularContract extends Contract {
 
     @Override
     public String toString() {
-        return "CellularContract: id=( " + getId() + " ) " +
-                " | startDate=( " + getStartDate() + " ) " +
-                " | endDate=( " + getEndDate() + " ) " + "internetMBQuantity=( " + internetMBQuantity + " ) " +
-                "| client=( " + getClient().toString() + " )" +
-                " | minutesQuantity=( " + minutesQuantity + " ) " +
-                " | messagesQuantity=( " + messagesQuantity + " )";
+        return "CellularContract: id=( "
+                + getId()
+                + " ) "
+                + " | startDate=( "
+                + getStartDate()
+                + " ) "
+                + " | endDate=( "
+                + getEndDate()
+                + " ) "
+                + "internetMBQuantity=( "
+                + internetMBQuantity
+                + " ) "
+                + "| client=( "
+                + getClient().toString()
+                + " )"
+                + " | minutesQuantity=( "
+                + minutesQuantity
+                + " ) "
+                + " | messagesQuantity=( "
+                + messagesQuantity
+                + " )";
     }
 }

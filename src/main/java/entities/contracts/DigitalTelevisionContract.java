@@ -1,12 +1,12 @@
 package entities.contracts;
 
 import entities.Client;
-import entities.contracts.Contract;
 
 import java.time.LocalDate;
 
 /**
- * Сущностный класс контракта телевизионной связи
+ * Сущностный класс контракта телевизионной связи.
+ *
  * @author Alexandr Smirnov
  */
 public class DigitalTelevisionContract extends Contract {
@@ -44,18 +44,27 @@ public class DigitalTelevisionContract extends Contract {
 
     @Override
     public String toString() {
-        String primaryInfo = "DigitalTelevisionContract: id=( " + getId() + " ) " +
-                "| startDate=( " + getStartDate() + " ) " +
-                "| endDate=( " + getEndDate() + " ) " +
-                "| client=( " + getClient().toString() + " ) ";
+        String primaryInfo = "DigitalTelevisionContract: id=( "
+                + getId()
+                + " ) "
+                + "| startDate=( "
+                + getStartDate()
+                + " ) "
+                + "| endDate=( "
+                + getEndDate()
+                + " ) "
+                + "| client=( "
+                + getClient().toString()
+                + " ) ";
 
         StringBuilder sb = new StringBuilder();
         sb.append(" | channelPackage=( ");
 
         for (int i = 0; i < channelPackage.length; i++) {
             sb.append(channelPackage[i]);
-            if (i != channelPackage.length - 1)
+            if (i != channelPackage.length - 1) {
                 sb.append(", ");
+            }
         }
 
         sb.append(" )");

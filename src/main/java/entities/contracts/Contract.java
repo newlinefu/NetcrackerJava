@@ -5,7 +5,8 @@ import entities.Client;
 import java.time.LocalDate;
 
 /**
- * Сущностный класс контракта
+ * Сущностный класс контракта.
+ *
  * @author Alexandr Smirnov
  */
 public class Contract {
@@ -94,10 +95,18 @@ public class Contract {
 
     @Override
     public String toString() {
-        return "Contract: id=( " + id + " ) " +
-                "| startDate=( " + startDate + " ) " +
-                "| endDate=( " + endDate + " ) " +
-                "| client=( " + client + " )";
+        return "Contract: id=( "
+                + id
+                + " ) "
+                + "| startDate=( "
+                + startDate
+                + " ) "
+                + "| endDate=( "
+                + endDate
+                + " ) "
+                + "| client=( "
+                + client
+                + " )";
     }
 
 }

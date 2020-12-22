@@ -1,7 +1,7 @@
 package entities;
 
+import annotations.Inject;
 import entities.contracts.Contract;
-import utils.sorters.BubbleSorter;
 import utils.sorters.ISorter;
 
 import java.util.Comparator;
@@ -10,19 +10,22 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Сущностный класс хранилища различных контрактов
+ * Сущностный класс хранилища различных контрактов.
+ *
  * @author Alexandr Smirnov
  */
 public class Repository {
 
     private Contract[] contracts;
     private int actualFinish = 0;
-    ISorter<Contract> sorter;
+
+    @Inject(ISorter.class)
+    private ISorter<Contract> sorter;
 
     /**
      * @value - Изначальная длина репозитория
      */
-    private static final int primaryLength = 10;
+    private static final int PRIMARY_LENGTH = 10;
 
     /**
      *
@@ -34,10 +37,11 @@ public class Repository {
     }
 
     /**
-     * Конструктор создания пустого репозитория с изначальной длиной primaryLength
+     * Конструктор создания пустого репозитория с изначальной длиной primaryLength.
+     *
      */
     public Repository() {
-        this.contracts = new Contract[primaryLength];
+        this.contracts = new Contract[PRIMARY_LENGTH];
     }
 
 
@@ -74,6 +78,10 @@ public class Repository {
         addWithCheck(contract);
     }
 
+    /**
+     *
+     * @param contractsCollection - Массив добавляемых контрактов
+     */
     public void add(Contract[] contractsCollection) {
         addContractsCollection(contractsCollection);
     }
@@ -113,8 +121,9 @@ public class Repository {
     private void deleteByContractId(int contractId) {
         for(int i = 0; i < actualFinish; i++) {
             if(contracts[i].getId() == contractId) {
-                if(i != actualFinish - 1)
+                if(i != actualFinish - 1) {
                     System.arraycopy(contracts, i + 1, contracts, i, actualFinish - i);
+                }
                 contracts[actualFinish - 1] = null;
                 actualFinish--;
                 return;
@@ -124,8 +133,9 @@ public class Repository {
 
     private Optional<Contract> getContract(int contractId) {
         for(int i = 0; i < actualFinish; i++) {
-            if(contractId == contracts[i].getId())
+            if(contractId == contracts[i].getId()) {
                 return Optional.ofNullable(contracts[i]);
+            }
         }
         return Optional.empty();
     }
@@ -139,8 +149,9 @@ public class Repository {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Repository:\n");
-        for(int i = 0; i < actualFinish; i++)
+        for(int i = 0; i < actualFinish; i++) {
             sb.append("\t").append(contracts[i].toString()).append("\n");
+        }
 
         return sb.toString();
     }
@@ -151,8 +162,7 @@ public class Repository {
      * @param comparator - Параметр сортировки контрактов репозитория
      */
     public void sort(Comparator<Contract> comparator) {
-        sorter = new BubbleSorter<>(comparator);
-        System.arraycopy(sorter.sort(getContracts()), 0, contracts, 0, actualFinish);
+        System.arraycopy(sorter.sort(comparator, getContracts()), 0, contracts, 0, actualFinish);
     }
 
     /**
@@ -163,8 +173,9 @@ public class Repository {
     public Repository find(Predicate<Contract> predicate) {
         Repository subRepos = new Repository();
         for(int i = 0; i < actualFinish; i++) {
-            if(predicate.test(contracts[i]))
+            if(predicate.test(contracts[i])) {
                 subRepos.add(contracts[i]);
+            }
         }
         return subRepos;
     }

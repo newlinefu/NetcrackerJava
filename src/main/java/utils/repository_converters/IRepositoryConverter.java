@@ -3,7 +3,8 @@ package utils.repository_converters;
 import entities.Repository;
 
 /**
- * Интерфейс конвертирования репозитория из различных форматов
+ * Интерфейс конвертирования репозитория из различных форматов.
+ *
  * @author Alexandr Smirnov
  */
 public interface IRepositoryConverter {

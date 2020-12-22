@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 /**
- * Класс, проверяющий валидность даты рождения клиента контракта
+ * Класс, проверяющий валидность даты рождения клиента контракта.
  *
  * @author Alexandr Smirnov
  */

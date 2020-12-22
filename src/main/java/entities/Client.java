@@ -5,7 +5,8 @@ import java.time.Period;
 import java.util.Objects;
 
 /**
- * Сущностный класс клиента
+ * Сущностный класс клиента.
+ *
  * @author Alexandr Smirnov
  */
 public class Client {
@@ -107,6 +108,7 @@ public class Client {
      * @param fullName - Полное имя клиента
      * @param passport - Данные о паспорте в строковом формате
      * @param birth - Дата рождения
+     * @param gender - Пол клиента
      */
     public Client(int id, String fullName, String passport, LocalDate birth, String gender) {
         this.id = id;
@@ -118,24 +120,39 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client: id=( " + id + " ) | " +
-                "fullName=( " + fullName + " ) | " +
-                "passport=( " + passport + " ) | birth=( " + birth + " ) | " +
-                "gender=( " + gender + " ) | " +
-                "age=( " + getAge() + " ) ";
+        return "Client: id=( "
+                + id
+                + " ) | "
+                + "fullName=( "
+                + fullName
+                + " ) | "
+                + "passport=( "
+                + passport
+                + " ) | birth=( "
+                + birth
+                + " ) | "
+                + "gender=( "
+                + gender
+                + " ) | "
+                +
+                "age=( "
+                + getAge()
+                + " ) ";
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
         Client client = (Client) o;
-        return  fullName.equals(client.fullName) &&
-                passport.equals(client.passport) &&
-                birth.equals(client.birth) &&
-                gender.equals(client.gender);
+        return  fullName.equals(client.fullName)
+                && passport.equals(client.passport)
+                && birth.equals(client.birth)
+                && gender.equals(client.gender);
     }
 
     @Override

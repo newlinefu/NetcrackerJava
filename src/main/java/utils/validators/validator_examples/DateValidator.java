@@ -7,7 +7,7 @@ import utils.validators.Status;
 import java.time.Period;
 
 /**
- * Класс для проверки валидности даты начала контракта и даты его окончания
+ * Класс для проверки валидности даты начала контракта и даты его окончания.
  *
  * @author Alexandr Smirnov
  */

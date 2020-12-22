@@ -1,17 +1,17 @@
 package utils.repository_converters;
 
+import annotations.Inject;
 import entities.Client;
 import entities.Repository;
 import entities.contracts.CellularContract;
 import entities.contracts.Contract;
 import entities.contracts.DigitalTelevisionContract;
 import entities.contracts.WiredInternetContract;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import utils.validators.IValidator;
 import utils.validators.Message;
 import utils.validators.Status;
-import utils.validators.validator_examples.ClientBirthValidator;
-import utils.validators.validator_examples.DateValidator;
-import utils.validators.validator_examples.DigitalTelevisionChannelsValidator;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -21,20 +21,22 @@ import java.util.Optional;
 import java.util.Scanner;
 
 /**
- * Класс конвертирования CSV формата в объект репозитория
+ * Класс конвертирования CSV формата в объект репозитория.
  *
  * @author Alexandr Smirnov
  */
 public class RepositoryCSVConverter implements IRepositoryConverter {
 
-    private List<IValidator> validators;
+    @Inject(IValidator.class)
+    private List<IValidator> validators = new LinkedList<>();
 
+    private Logger logger;
+
+    /**
+     *
+     */
     public RepositoryCSVConverter() {
-        validators = new LinkedList<>();
-
-        validators.add(new ClientBirthValidator());
-        validators.add(new DateValidator());
-        validators.add(new DigitalTelevisionChannelsValidator());
+        logger = LogManager.getLogger("CSV convert");
     }
 
     /**
@@ -57,13 +59,19 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
     @Override
     public void parseFileData(String filename, Repository repos) {
 
-        File csvDB = new File(filename);
+        logger.info(String.format("Get parsing file %s", filename));
 
         try {
+            File csvDB = new File(filename);
             Scanner fileScanner = new Scanner(csvDB);
+
+            logger.info(String.format("Start parsing file %s", filename));
+
             parseAll(fileScanner, repos);
 
+            logger.info(String.format("End parsing file %s", filename));
         } catch (Exception err) {
+            logger.info(err);
             System.out.println(err.getMessage());
             err.printStackTrace();
         }
@@ -95,16 +103,16 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
             return null;
         }
 
-        String beginDate = lineItems[1].trim(),
-                endDate = lineItems[2].trim(),
-                fullName = lineItems[3].trim(),
-                birthDate = lineItems[4].trim(),
-                passport = lineItems[5].trim(),
-                gender = lineItems[6].trim(),
-                conType = lineItems[7].trim(),
+        String beginDate = lineItems[1].trim();
+        String endDate = lineItems[2].trim();
+        String fullName = lineItems[3].trim();
+        String birthDate = lineItems[4].trim();
+        String passport = lineItems[5].trim();
+        String gender = lineItems[6].trim();
+        String conType = lineItems[7].trim();
 
-                //Если тип контракта обычный контракт => необходимости в последнем столбце нет
-                addInfo = conType.equals(Contract.class.getSimpleName()) ? "" : lineItems[8].trim();
+        //Если тип контракта обычный контракт => необходимости в последнем столбце нет
+        String addInfo = conType.equals(Contract.class.getSimpleName()) ? "" : lineItems[8].trim();
 
         //Если ID контракта невалидно => возврат -1
         int contractId = extractContractId(lineItems[0].trim());
@@ -114,8 +122,9 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
         Client candidate = clientParse(clients, fullName, birthDate, passport, gender);
 
         //Если хотябы один аспект контракта невалиден => контракт не парсится
-        if (contractId == -1 || candidate == null)
+        if (contractId == -1 || candidate == null) {
             return null;
+        }
 
         return contractParse(contractId, beginDate, endDate, candidate, conType, addInfo);
     }
@@ -134,8 +143,9 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
         LocalDate contractLocalDateStart = parseDateFromString(beginDate);
         LocalDate contractLocalDateEnd = parseDateFromString(endDate);
 
-        if (contractLocalDateStart == null || contractLocalDateEnd == null)
+        if (contractLocalDateStart == null || contractLocalDateEnd == null) {
             return null;
+        }
 
         switch (conType) {
             case ("Contract"): {
@@ -160,8 +170,9 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
 
                 String[] channelPackage = addInfo.split("&");
 
-                for (int i = 0; i < channelPackage.length; i++)
+                for (int i = 0; i < channelPackage.length; i++) {
                     channelPackage[i] = channelPackage[i].trim();
+                }
 
                 return new DigitalTelevisionContract(
                         contractId,
@@ -230,8 +241,9 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
             //Если в списке клиентов такой уже существует => вернем уже существующий
             for (int i = 0; i < clients.size(); i++) {
                 Client listItem = clients.get(i);
-                if (listItem.equals(candidate))
+                if (listItem.equals(candidate)) {
                     return listItem;
+                }
             }
 
             clients.add(candidate);
@@ -280,17 +292,22 @@ public class RepositoryCSVConverter implements IRepositoryConverter {
     }
 
     private Optional<Contract> validateContract(Contract c) {
-        if(c == null)
+
+        logger.info(String.format("Start validate contract %s", c));
+
+        if(c == null) {
+            logger.info("Empty contract");
             return Optional.empty();
+        }
 
         for(IValidator validator : validators) {
 
             Message resultMessage = validator.validate(c);
+            String info = String.format("Validate result %s contract: %s", c, resultMessage);
 
-            if (resultMessage.getStatus().name().equals(Status.WARNING.name())) {
-                System.out.println(resultMessage.toString());
-            } else if (resultMessage.getStatus().name().equals(Status.ERROR.name())){
-                System.out.println(resultMessage.toString());
+            logger.info(info);
+
+            if (resultMessage.getStatus().name().equals(Status.ERROR.name())){
                 return Optional.empty();
             }
         }

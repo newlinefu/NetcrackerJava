@@ -1,4 +1,8 @@
-package utils.sorters;
+package utils.sorters.bubble;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import utils.sorters.ISorter;
 
 import java.util.Comparator;
 
@@ -8,22 +12,23 @@ import java.util.Comparator;
  */
 public class BubbleSorter<T> implements ISorter<T> {
 
-    private Comparator<T> comparator;
+    private Logger logger;
 
     /**
      *
-     * @param comparator - Класс-реализация компаратора для сортируемых объектов/типов
      */
-    public BubbleSorter(Comparator<T> comparator) {
-        this.comparator = comparator;
+    public BubbleSorter() {
+        logger = LogManager.getLogger("Bubble sorter");
     }
 
+
     /**
-     *
+     * @param comparator - Параметр сортировки
      * @param array - сортируемый массив
      * @return Мутированный отсортированный массив array
      */
-    public T[] sort(T[] array) {
+    public T[] sort(Comparator<T> comparator, T[] array) {
+        logger.info("Bubble sort started");
         boolean isSorted = false;
 
         while(!isSorted) {
@@ -37,6 +42,8 @@ public class BubbleSorter<T> implements ISorter<T> {
                 }
             }
         }
+
+        logger.info("Bubble sort ended");
         return array;
     }
 }

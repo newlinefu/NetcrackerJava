@@ -1,12 +1,12 @@
 package entities.contracts;
 
 import entities.Client;
-import entities.contracts.Contract;
 
 import java.time.LocalDate;
 
 /**
- * Сущностный класс контракта проводного интернета
+ * Сущностный класс контракта проводного интернета.
+ *
  * @author Smirnov Alexandr
  */
 public class WiredInternetContract extends Contract {
@@ -44,10 +44,20 @@ public class WiredInternetContract extends Contract {
 
     @Override
     public String toString() {
-        return "WiredInternetContract: id=( " + getId() + " ) " +
-                " | startDate=( " + getStartDate() + " ) " +
-                " | endDate=( " + getEndDate() + " ) " +
-                "| client=( " + getClient().toString() + " )" +
-                " | maxKBInternetSpeed=( " + maxKBInternetSpeed + " )";
+        return "WiredInternetContract: id=( "
+                + getId()
+                + " ) "
+                + " | startDate=( "
+                + getStartDate()
+                + " ) "
+                + " | endDate=( "
+                + getEndDate()
+                + " ) "
+                + "| client=( "
+                + getClient().toString()
+                + " )"
+                + " | maxKBInternetSpeed=( "
+                + maxKBInternetSpeed
+                + " )";
     }
 }

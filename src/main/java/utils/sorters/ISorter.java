@@ -1,5 +1,7 @@
 package utils.sorters;
 
+import java.util.Comparator;
+
 /**
  *
  * @param <T>
@@ -7,10 +9,10 @@ package utils.sorters;
 public interface ISorter<T> {
 
     /**
-     *
+     * @param comparator - Параметр сортировки
      * @param array - Сортируемый массив
      * @return Отсортированный исходный массив
      */
-    public T[] sort(T[] array);
+    T[] sort(Comparator<T> comparator, T[] array);
 
 }

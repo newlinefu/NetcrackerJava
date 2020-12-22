@@ -1,7 +1,8 @@
 package utils.validators;
 
 /**
- * Класс сообщения валидатора
+ * Класс сообщения валидатора.
+ *
  * @author Alexandr Smirnov
  */
 public class Message {
@@ -48,9 +49,11 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "status=" + status +
-                ", messageBody='" + messageBody + '\'' +
-                '}';
+        return "Message{"
+                + "status="
+                + status
+                + ", messageBody='"
+                + messageBody
+                + "\'}";
     }
 }
