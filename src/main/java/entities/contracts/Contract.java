@@ -1,7 +1,9 @@
 package entities.contracts;
 
 import entities.Client;
+import utils.xml_actions.adapters.ContractXmlAdapter;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
 /**
@@ -9,6 +11,8 @@ import java.time.LocalDate;
  *
  * @author Alexandr Smirnov
  */
+@XmlJavaTypeAdapter(ContractXmlAdapter.class)
+
 public class Contract {
     private int id;
     private LocalDate startDate;

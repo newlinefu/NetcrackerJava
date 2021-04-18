@@ -10,13 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class DataBaseRepositoryTest extends TestCase {
 
     @Test
     void restore() {
-        DataBaseRepository dbr = new DataBaseRepository();
+        DBRepositoryWorker dbr = new DBRepositoryWorker();
         Repository reposPrimary = new Repository();
         reposPrimary.add(new WiredInternetContract(
                 1,

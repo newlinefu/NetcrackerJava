@@ -1,4 +1,4 @@
-package utils.db_actions;
+package utils.interfaces;
 
 import entities.Repository;
 
@@ -7,17 +7,17 @@ import entities.Repository;
  *
  * @author Alexandr Smirnov
  */
-public interface IDataBaseRepository {
+public interface IRepositoryWorker {
 
     /**
      *
-     * @param repos - Репозиторий для сохранения в базе данных
+     * @param repos - Репозиторий для сохранения
      */
     void save(Repository repos);
 
     /**
      *
-     * @return Репозиторий, загруженный из базы данных
+     * @return Загруженный репозиторий
      */
     Repository restore();
 

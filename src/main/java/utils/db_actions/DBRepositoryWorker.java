@@ -8,6 +8,7 @@ import entities.contracts.DigitalTelevisionContract;
 import entities.contracts.WiredInternetContract;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import utils.interfaces.IRepositoryWorker;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +20,7 @@ import java.util.Properties;
  *
  * @author Alexandr Sminov
  */
-public class DataBaseRepository implements IDataBaseRepository {
+public class DBRepositoryWorker implements IRepositoryWorker {
 
     private static Logger logger = LogManager.getLogger("DataBase logger");
 
@@ -28,11 +29,11 @@ public class DataBaseRepository implements IDataBaseRepository {
     private String user;
     private String pass;
 
-    public DataBaseRepository() {
+    public DBRepositoryWorker() {
         try {
             logger.info("Start get db props");
 
-            InputStream dbp = DataBaseRepository.class.getClassLoader().getResourceAsStream("DBConnection.properties");
+            InputStream dbp = DBRepositoryWorker.class.getClassLoader().getResourceAsStream("DBConnection.properties");
             Properties props = new Properties();
             props.load(dbp);
 

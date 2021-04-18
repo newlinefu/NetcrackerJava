@@ -3,7 +3,10 @@ package entities;
 import annotations.Inject;
 import entities.contracts.Contract;
 import utils.sorters.ISorter;
+import utils.sorters.bubble.BubbleSorter;
+import utils.sorters.heap.HeapSorter;
 
+import javax.xml.bind.annotation.*;
 import java.util.Comparator;
 
 import java.util.Optional;
@@ -14,17 +17,25 @@ import java.util.function.Predicate;
  *
  * @author Alexandr Smirnov
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "repository")
 public class Repository {
 
+    @XmlElement(name = "contract")
     private Contract[] contracts;
+
+    @XmlElement
     private int actualFinish = 0;
 
     @Inject(ISorter.class)
+    @XmlElements({@XmlElement(type = BubbleSorter.class), @XmlElement(type = HeapSorter.class)})
     private ISorter<Contract> sorter;
 
     /**
      * @value - Изначальная длина репозитория
      */
+    @XmlTransient
     private static final int PRIMARY_LENGTH = 10;
 
     /**
@@ -62,6 +73,7 @@ public class Repository {
         System.arraycopy(contracts, 0, returnedContracts, 0, actualFinish);
         return returnedContracts;
     }
+
     /**
      *
      * @param contractId - ID контракта, который должен быть удален

@@ -1,21 +1,42 @@
 package entities;
 
+import utils.xml_actions.adapters.LocalDateXmlAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
-
 /**
  * Сущностный класс клиента.
  *
  * @author Alexandr Smirnov
  */
+
+@XmlRootElement(name = "client")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Client {
 
+    @XmlElement
     private int id;
+
+    @XmlElement
     private String fullName;
+
+    @XmlElement
     private String passport;
+
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
     private LocalDate birth;
+
+    @XmlElement
     private String gender;
+
+    public Client() {
+    }
 
     /**
      * @return ID клиента
